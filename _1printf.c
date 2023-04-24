@@ -1,41 +1,44 @@
 #include "main.h"
 /**
- * _printf - function that produces output according to a format.
- *
- * @format:  character string.
- * The format string is composed of zero or more directives.
- * @...: argument list
- *
- * Return: int - number of printed letters
- */
+ * _printf - A printf clone
+ * @format: const pointer to a char - % include formats
+ * Return: number of characters printed.
+*/
 int _printf(const char *format, ...)
 {
+	int i = 0, *count, *count3;
+	int ctbuffer[2];
+	int ctbuffer3[2];
+	char *copyfmt;
+	char copyarray[10000];
 	va_list args;
-	int i, count, ok;
 
-	i = 0;
-	count = 0;
-	va_start(args, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-	while (format[i])
+	count = &ctbuffer[0];
+	count3 = &ctbuffer3[0];
+	count[0] = 0;
+	count[1] = -1;
+	if (format != NULL)
 	{
-		if (format[i] == '%')
+		count[1] = 0;
+		copyfmt = _strcpy(copyarray, format);
+		va_start(args, format);
+		while (copyfmt[i] != '\0')
 		{
-			ok = get_print_fun(format[i + 1], args);
-			if (ok)
+			if (copyfmt[i] == '%')
 			{
-				count += ok;
-				i++;
+				count3 = print_formats(i, copyfmt, args);
+				if (count3[1] == -1)
+				return (-1);
+				count[1] += count3[1];
+				i += count3[0];
 			}
 			else
-				count += _putchar(format[i]);
+			{
+				count[1] += _putchar(&copyfmt[i]);
+			}
+			i++;
 		}
-		else
-			count += _putchar(format[i]);
-		i++;
+		va_end(args);
 	}
-	va_end(args);
-	_putchar(BUF_FLUSH);
-	return (count);
+return (count[1]);
 }
