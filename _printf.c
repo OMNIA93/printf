@@ -1,23 +1,21 @@
-#include "main.h"
 #include <stdio.h>
+#include <stdarg.h>
+#include "main.h"
 
 /**
- * _printf - prints formatted output to stdout
- * @format: format string
+ * _printf - Prints a formatted output to stdout.
  *
- * Return: number of characters printed
+ * @format: A character string that contains zero or more directives.
+ * Return: The number of characters printed.
  */
 int _printf(const char *format, ...)
 {
-    va_list args;
     int count = 0;
-    char c;
-    char *s;
-    int d;
+    va_list args;
 
     va_start(args, format);
 
-    while (*format != '\0')
+    while (*format)
     {
         if (*format == '%')
         {
@@ -25,35 +23,25 @@ int _printf(const char *format, ...)
 
             switch (*format)
             {
-            case 'c':
-                c = va_arg(args, int);
-                putchar(c);
-                count++;
-                break;
-            case 's':
-                s = va_arg(args, char *);
-                while (*s != '\0')
-                {
-                    putchar(*s);
-                    s++;
+                case 'c':
+                    putchar(va_arg(args, int));
                     count++;
-                }
-                break;
-            case '%':
-                putchar('%');
-                count++;
-                break;
-            case 'd':
-            case 'i':
-                d = va_arg(args, int);
-                printf("%d", d);
-                count++;
-                break;
-            default:
-                putchar('%');
-                putchar(*format);
-                count += 2;
-                break;
+                    break;
+
+                case 's':
+                    count += printf("%s", va_arg(args, char *));
+                    break;
+
+                case '%':
+                    putchar('%');
+                    count++;
+                    break;
+
+                default:
+                    putchar('%');
+                    putchar(*format);
+                    count += 2;
+                    break;
             }
         }
         else
