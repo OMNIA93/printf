@@ -1,28 +1,39 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
 
-/**
- * _printf - Receives the main string and all the necessary parameters to
- * print a formated string
- * @format: A string containing all the desired characters
- * Return: A total count of the characters printed
- */
-int _printf(const char *format, ...)
-{
-	int printed_chars;
-	conver_t f_list[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent},
-		{NULL, NULL}
-	};
-	va_list arg_list;
-
-	if (format == NULL)
-		return (-1);
-
-	va_start(arg_list, format);
-	/*Calling parser function*/
-	printed_chars = parser(format, f_list, arg_list);
-	va_end(arg_list);
-	return (printed_chars);
+int _printf(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    int count = 0;
+    char c;
+    while ((c = *format++) != '') {
+        if (c == '%') {
+            switch (*format++) {
+                case 'c': {
+                    int arg = va_arg(args, int);
+                    putchar(arg);
+                    count++;
+                    break;
+                }
+                case 's': {
+                    char *arg = va_arg(args, char *);
+                    while (*arg != '') {
+                        putchar(*arg++);
+                        count++;
+                    }
+                    break;
+                }
+                case '%': {
+                    putchar('%');
+                    count++;
+                    break;
+                }
+            }
+        } else {
+            putchar(c);
+            count++;
+        }
+    }
+    va_end(args);
+    return count;
 }
