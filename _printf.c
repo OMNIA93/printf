@@ -9,18 +9,18 @@
  */
 int _printf(const char *format, ...)
 {
-    va_list args;
-    int printed_chars = 0;
+	va_list args;
+	int printed_chars = 0;
 
-    va_start(args, format);
+	va_start(args, format);
 
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
-
-            if (*format == 'c')
+	while (*format != '\0')
+	{
+		if (*format == '%')
+		{
+			format ++;
+			
+			if (*format == 'c')
             {
                 int c = va_arg(args, int);
                 putchar(c);
