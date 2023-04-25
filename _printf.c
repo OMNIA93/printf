@@ -1,17 +1,17 @@
-#include <stdio.h>
-#include <stdarg.h>
 #include "main.h"
 
 /**
- * _printf - Prints a formatted output to stdout.
+ * _printf - prints output according to a format
+ * @format: character string
  *
- * @format: A character string that contains zero or more directives.
- * Return: The number of characters printed.
+ * Return: number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
-    int count = 0;
-    va_list args;
+    int len = 0; /* length of printed string */
+    va_list args; /* argument list */
+    char c;
 
     va_start(args, format);
 
@@ -20,40 +20,46 @@ int _printf(const char *format, ...)
         if (*format == '%')
         {
             format++;
-
             switch (*format)
             {
                 case 'c':
-                    putchar(va_arg(args, int));
-                    count++;
+                    c = (char) va_arg(args, int);
+                    len += _putchar(c);
                     break;
-
                 case 's':
-                    count += printf("%s", va_arg(args, char *));
+                    len += _puts(va_arg(args, char *));
                     break;
-
                 case '%':
-                    putchar('%');
-                    count++;
+                    len += _putchar('%');
                     break;
-
                 default:
-                    putchar('%');
-                    putchar(*format);
-                    count += 2;
+                    len += _putchar('%');
+                    len += _putchar(*format);
                     break;
             }
         }
         else
         {
-            putchar(*format);
-            count++;
+            len += _putchar(*format);
         }
-
         format++;
     }
 
     va_end(args);
 
-    return count;
+    return (len);
+}
+
+
+
+/**
+ * _putchar - writes a character to stdout
+ * @c: character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+    return (write(1, &c, 1));
 }
