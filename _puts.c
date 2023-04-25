@@ -11,10 +11,10 @@ int _puts(char *str)
     int i;
 
     if (str == NULL)
-        str = "(null)";
+	str = "(null)";
 
     for (i = 0; str[i] != '\0'; i++)
-        _putchar(str[i]);
+	_putchar(str[i]);
 
     return (i);
 }

@@ -12,16 +12,17 @@ int _printf_d(int n)
 
     if (n < 0)
     {
-        len += _putchar('-');
-        n = -n;
+	    len += _putchar('-');
+	    n = -n;
     }
 
     if (n / 10)
-        len += _printf_d(n / 10);
+	    len += _printf_d(n / 10);
 
-    len += _putchar(n % 10 + '0');
 
-    return (len);
+	len += _putchar(n % 10 + '0');
+
+	return (len);
 }
 
 /**

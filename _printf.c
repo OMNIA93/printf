@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 					c = (char) va_arg(args, int);
 					len += _putchar(c);
 					break;
-				case 's' :
+				case 's':
 					len += _puts(va_arg(args, char *));
 					break;
 				case '%':
@@ -44,7 +44,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-    
+
 
 	va_end(args);
 
