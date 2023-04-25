@@ -69,6 +69,9 @@ typedef struct specifier
 int _puts(char *str);
 int _putchar(char c);
 
+int _printf_d(int n);
+int _printf_i(int n);
+
 /* print_functions.c module */
 int print_char(va_list ap, params_t *params);
 int print_int(va_list ap, params_t *params);
