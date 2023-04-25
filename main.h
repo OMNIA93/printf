@@ -38,4 +38,4 @@ char *replace_str(char *s);
 int p_add(va_list args);
 char *rot13(char *n);
 int p_rot13(va_list args);
-#endif
+#endif /* MAIN_H */
