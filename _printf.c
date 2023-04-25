@@ -8,45 +8,47 @@
  */
 int _printf(const char *format, ...)
 {
-    int len = 0; /* length of printed string */
-    va_list args; /* argument list */
-    char c;
+	int len = 0; /* length of printed string */
+	va_list args; /* argument list */
+	char c;
 
-    va_start(args, format);
+	va_start(args, format);
 
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 'c':
-                    c = (char) va_arg(args, int);
-                    len += _putchar(c);
-                    break;
-                case 's':
-                    len += _puts(va_arg(args, char *));
-                    break;
-                case '%':
-                    len += _putchar('%');
-                    break;
-                default:
-                    len += _putchar('%');
-                    len += _putchar(*format);
-                    break;
-            }
-        }
-        else
-        {
-            len += _putchar(*format);
-        }
-        format++;
-    }
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			switch (*format)
+			{
+				case 'c':
+					c = (char) va_arg(args, int);
+					len += _putchar(c);
+					break;
+				case 's' :
+					len += _puts(va_arg(args, char *));
+					break;
+				case '%':
+					len += _putchar('%');
+					break;
+				default:
+					len += _putchar('%');
+					len += _putchar(*format);
+					break;
+			}
+		}
 
-    va_end(args);
+		else
+		{
+			len += _putchar(*format);
+		}
+		format++;
+	}
+    
 
-    return (len);
+	va_end(args);
+
+	return (len);
 }
 
 
@@ -60,5 +62,5 @@ int _printf(const char *format, ...)
  */
 int _putchar(char c)
 {
-    return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
