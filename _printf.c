@@ -2,11 +2,11 @@
 
 /**
  * _printf - prints anything
- * @formats: the formats string
+ * @format: the format string
  *
  * Return: number printed
  */
-int _printf(const char *format, ...)
+int _printf(const char *format, ...);
 {
 	int sum = 0;
 	va_list ap;
