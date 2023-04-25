@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * _printf - Produces output according to a format.
@@ -40,6 +41,40 @@ int _printf(const char *format, ...)
             {
                 putchar('%');
                 printed_chars++;
+            }
+            else if (*format == 'd' || *format == 'i')
+            {
+                int num = va_arg(args, int);
+                int negative = 0;
+
+                if (num < 0)
+                {
+                    negative = 1;
+                    num = -num;
+                }
+
+                int num_digits = 0;
+                int num_copy = num;
+                do
+                {
+                    num_digits++;
+                    num_copy /= 10;
+                } while (num_copy != 0);
+
+                if (negative)
+                {
+                    putchar('-');
+                    printed_chars++;
+                }
+
+                do
+                {
+                    int digit = num % 10;
+                    putchar('0' + digit);
+                    printed_chars++;
+                    num /= 10;
+                } while (num != 0);
+
             }
             else
             {
