@@ -1,49 +1,71 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * _printf - prints anything
- * @format: the format string
+ * _printf - prints formatted output to stdout
+ * @format: format string
  *
- * Return: number printed
+ * Return: number of characters printed
  */
-int _printf(const char *format, ...);
+int _printf(const char *format, ...)
 {
-	int sum = 0;
-	va_list ap;
-	char *p, *start;
-	params_t params = PARAMS_INIT;
+    va_list args;
+    int count = 0;
+    char c;
+    char *s;
+    int d;
 
-	va_start(ap, format);
+    va_start(args, format);
 
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-	for (p = (char *)format; *p; p++)
-	{
-		init_params(&params, ap);
-		if (*p != '%')
-		{
-			sum += _putchar(*p);
-			continue;
-		}
-		start = p;
-		p++;
-		while (get_flag(p, &params)) /* while char at p is flag char */
-		{
-			p++; /* next char */
-		}
-		p = get_width(p, &params, ap);
-		p = get_precision(p, &params, ap);
-		if (get_modifier(p, &params))
-			p++;
-		if (!get_specifier(p))
-			sum += print_from_to(start, p,
-				params.l_modifier || params.h_modifier ? p - 1 : 0);
-		else
-			sum += get_print_func(p, ap, &params);
-	}
-	_putchar(BUF_FLUSH);
-	va_end(ap);
-	return (sum);
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
+            format++;
+
+            switch (*format)
+            {
+            case 'c':
+                c = va_arg(args, int);
+                putchar(c);
+                count++;
+                break;
+            case 's':
+                s = va_arg(args, char *);
+                while (*s != '\0')
+                {
+                    putchar(*s);
+                    s++;
+                    count++;
+                }
+                break;
+            case '%':
+                putchar('%');
+                count++;
+                break;
+            case 'd':
+            case 'i':
+                d = va_arg(args, int);
+                printf("%d", d);
+                count++;
+                break;
+            default:
+                putchar('%');
+                putchar(*format);
+                count += 2;
+                break;
+            }
+        }
+        else
+        {
+            putchar(*format);
+            count++;
+        }
+
+        format++;
+    }
+
+    va_end(args);
+
+    return count;
 }
