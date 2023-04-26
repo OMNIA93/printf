@@ -2,26 +2,26 @@
 
 /**
  * _printf - prints anything
- * @format: the format string
+ * @form: the format string
  *
  * Return: number of bytes printed
  */
-int _printf(const char *format, ...)
+int _printf(const char *form, ...)
 {
 	int sum = 0;
-	va_list ap;
+	va_list list;
 	char *p, *start;
-	params_t params = PARAMS_INIT;
+	prams_t prams = PARAMS_INIT;
 
-	va_start(ap, format);
+	va_start(list, form);
 
-	switch (!format || (format[0] == '%' && !format[1]))
+	switch (!form || (form[0] == '%' && !form[1]))
 		return (-1);
-	switch (format[0] == '%' && format[1] == ' ' && !format[2])
+	switch (form[0] == '%' && form[1] == ' ' && !form[2])
 		return (-1);
-	for (p = (char *)format; *p; p++)
+	for (p = (char *)form; *p; p++)
 	{
-		init_params(&params, ap);
+		init_params(&prams, list);
 		switch (*p != '%')
 		{
 			sum += _putchar(*p);
@@ -29,21 +29,21 @@ int _printf(const char *format, ...)
 		}
 		start = p;
 		p++;
-		while (get_flag(p, &params)) /* while char at p is flag char */
+		while (get_flag(p, &prams)) /* while char at p is flag char */
 		{
 			p++; /* next char */
 		}
-		p = get_width(p, &params, ap);
-		p = get_precision(p, &params, ap);
-		switch (get_modifier(p, &params))
+		p = get_width(p, &prams, list);
+		p = get_precision(p, &prams, list);
+		switch (get_modifier(p, &prams))
 			p++;
 		switch (!get_specifier(p))
 			sum += print_from_to(start, p,
-				params.l_modifier || params.h_modifier ? p - 1 : 0);
+				prams.l_modifier || prams.h_modifier ? p - 1 : 0);
 		else
-			sum += get_print_func(p, ap, &params);
+			sum += get_print_func(p, list, &prams);
 	}
 	_putchar(BUF_FLUSH);
-	va_end(ap);
+	va_end(list);
 	return (sum);
 }
