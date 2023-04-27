@@ -1,71 +1,73 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
-
 /**
- * _printf - produces output according to a format.
- * @format: character string
- *
- * Return: number of characters printed
- */
+* _printf - prints out string and arguments
+* @format: string to print
+* Return: size of string -1 if fail
+*/
+
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int i = 0, count = 0;
-	char *str;
+	int i, pc = 0, p = 0;
+	va_list list;
 
-	va_start(args, format);
 
-	while (format && format[i])
+	if (!format)
+		return (-1);
+
+	va_start(list, format);
+
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (format[i] == '%' && format[i + 1])
+		if (format[i] != '%')
 		{
-			i++;
-
-			switch (format[i])
-			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
-					break;
-				case 's':
-					str = va_arg(args, char *);
-					if (str)
-					{
-						count += _puts(str);
-						break;
-					}
-					count += _puts("(null)");
-					break;
-				case '%':
-					count += _putchar('%');
-					break;
-				default:
-					count += _putchar('%');
-					count += _putchar(format[i]);
-			}
+			_putchar(format[i]);
+			pc++;
 		}
 		else
-			count += _putchar(format[i]);
-		i++;
+		{
+			i++;
+			if (format[i])
+				p = handle_print(format, &i, list);
+			else
+				p = -1;
+			if (p == -1 && format[i])
+			{
+				print_37(list);
+				pc++;
+				i--;
+			}
+			else if (p == -1)
+				return (-1);
+			else if (p != -1)
+				pc += p;
+		}
 	}
-	va_end(args);
-	return (count);
+	va_end(list);
+	return (pc);
 }
 
 /**
- * _strlen - Computes the length of a string
- * @s: The string to compute the length of
- *
- * Return: The length of the string
+ * handle_print - takes care of printing
+ * @format: pointer to format string
+ * @i: index of char
+ * @list: arguments
+ * Return: size of print or -1 if fail
  */
-int _strlen(char *s)
+
+
+int handle_print(const char *format, int *i, va_list list)
 {
-    int len = 0;
+	ff function[] = {
+		{'c', print_char}, {'s', print_str},
+		{'%', print_37}, {'i', print_int},
+		{'d', print_int}, {'\0', NULL}
+	};
+	int j;
 
-    while (s[len] != '\0')
-    {
-        len++;
-    }
-
-    return len;
+	for (j = 0; j < 6; ++j)
+	{
+		if (function[j].c == format[*i])
+			return (function[j].print(list));
+	}
+	return (-1);
 }
