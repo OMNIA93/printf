@@ -28,5 +28,7 @@ int print_hex_lower(va_list args);
 int print_hex_upper(va_list args);
 int print_pointer(va_list args);
 int print_rev(va_list args);
+int _putchar(char c);
+int _puts(char *str);
 
 #endif
