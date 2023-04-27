@@ -1,73 +1,49 @@
 #include "main.h"
-/**
-* _printf - prints out string and arguments
-* @format: string to print
-* Return: size of string -1 if fail
-*/
 
+/**
+ * _printf - prints anything
+ * @format: the format string
+ *
+ * Return: number of bytes printed
+ */
 int _printf(const char *format, ...)
 {
-	int i, pc = 0, p = 0;
-	va_list list;
+	int sum = 0;
+	va_list ap;
+	char *p, *start;
+	params_t params = PARAMS_INIT;
 
+	va_start(ap, format);
 
-	if (!format)
+	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
-
-	va_start(list, format);
-
-	for (i = 0; format[i] != '\0'; i++)
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = (char *)format; *p; p++)
 	{
-		if (format[i] != '%')
+		init_params(&params, ap);
+		if (*p != '%')
 		{
-			_putchar(format[i]);
-			pc++;
+			sum += _putchar(*p);
+			continue;
 		}
+		start = p;
+		p++;
+		while (get_flag(p, &params)) /* while char at p is flag char */
+		{
+			p++; /* next char */
+		}
+		p = get_width(p, &params, ap);
+		p = get_precision(p, &params, ap);
+		if (get_modifier(p, &params))
+			p++;
+		if (!get_specifier(p))
+			sum += print_from_to(start, p,
+				params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-		{
-			i++;
-			if (format[i])
-				p = handle_print(format, &i, list);
-			else
-				p = -1;
-			if (p == -1 && format[i])
-			{
-				print_37(list);
-				pc++;
-				i--;
-			}
-			else if (p == -1)
-				return (-1);
-			else if (p != -1)
-				pc += p;
-		}
+			sum += get_print_func(p, ap, &params);
 	}
-	va_end(list);
-	return (pc);
-}
-
-/**
- * handle_print - takes care of printing
- * @format: pointer to format string
- * @i: index of char
- * @list: arguments
- * Return: size of print or -1 if fail
- */
-
-
-int handle_print(const char *format, int *i, va_list list)
-{
-	ff function[] = {
-		{'c', print_char}, {'s', print_str},
-		{'%', print_37}, {'i', print_int},
-		{'d', print_int}, {'\0', NULL}
-	};
-	int j;
-
-	for (j = 0; j < 6; ++j)
-	{
-		if (function[j].c == format[*i])
-			return (function[j].print(list));
-	}
-	return (-1);
+	_putchar(BUF_FLUSH);
+	va_end(ap);
+	return (sum);
 }
