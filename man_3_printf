@@ -1,4 +1,4 @@
-.TH man 3 "27th July 2021" "0.01" "_printf man page"
+.TH man 3 "27th APRIL 2023" "0.01" "_printf man page"
 .SH NAME
 .B _printf
 - A simple re-creation of the printf function
@@ -27,4 +27,4 @@ printed not counting \\0 for the string.
 .SH BUGS
 No known bugs.
 .SH AUTHOR
-Peter Numi && Michael Ndula
+OMNIA ABD ELALEEM &HANEN MOHAMED
