@@ -2,6 +2,9 @@
 #define MAIN_H
 
 #include <stdarg.h>
+#include <limits.h>
+#include <stdio.h>
+#include <unistd.h>
 
 /**
  * struct print_fmt - struct containing a print format and a function pointer
