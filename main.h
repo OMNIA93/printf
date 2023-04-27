@@ -33,5 +33,6 @@ int print_pointer(va_list args);
 int print_rev(va_list args);
 int _putchar(char c);
 int _puts(char *str);
+int _strlen(char *s);
 
 #endif
