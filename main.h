@@ -13,7 +13,7 @@ typedef struct specifiers
 	int i;
 	int (*p)(char c, va_list v);
 } spec;
-int _print f(const char *format, ...);
+int _printf (const char *format, ...);
 int istring (char, va_list v);
 int fun (va_list, const char*, int);
 int _putchar (char c);
