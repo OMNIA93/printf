@@ -4,6 +4,7 @@
 #include <stdarg.h>
 
 int _putchar(char c);
+int fputs(const char *str, FILE *stream);
 void _puts(char *str);
 int _strlen(char *s);
 int _printf(const char *format, ...);
