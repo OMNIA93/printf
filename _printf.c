@@ -39,7 +39,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			x = write(1, &format[j], 1);
-			i++;
+			j++;
 		}
 		sum = sum + x;
 	}
