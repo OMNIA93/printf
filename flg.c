@@ -16,10 +16,10 @@ int flag(const char *format, int i, va_list v)
 {
 	int x = -1, s = 0, p = 0, h = 0;
 
-	while (format[i])
-	{
-      if (!(format[i] == ' ' || format[i] == '#' || format[i] == '+'))
-        break;
+		while (format[i])
+		{
+	      if (!(format[i] == ' ' || format[i] == '#' || format[i] == '+'))
+		break;
 		if (format[i] == '#')
 			h = 1;
 		if (format[i] == ' ')
