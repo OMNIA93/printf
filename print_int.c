@@ -22,6 +22,8 @@ int print_int(va_list l, flags_t *f)
 	return (res);
 }
 
+char *convert_base(unsigned long int num, char *base, int precision, int is_unsigned);
+
 /**
  * print_unsigned - prints an unsigned integer
  * @l: va_list of arguments from _printf
