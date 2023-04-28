@@ -7,7 +7,7 @@
  * 
  * Return: number of char printed
  */
-int print_nonprintable(va_list l, flags_t *f)
+int print_bigS(va_list l, flags_t *f)
 {
 	int i, count = 0;
 	char *res;
@@ -65,11 +65,10 @@ int print_rev(va_list l, flags_t *f)
 	if (!s)
 		s = "(null)";
 
-	// get length of string
 	while (s[i])
 		i++;
+	
 
-	// print string in reverse
 	for (j = i; j > 0; j--)
 		_putchar(s[j - 1]);
 
