@@ -1,6 +1,6 @@
-#include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include "main.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -28,7 +28,7 @@ int fun(va_list v, const char *format, int k)
 	while ((n < 11) && c)
 	{
 		i = 0;
-		while ((sp[j].c)[i])
+		while ((sp[n].c)[i])
 		{
 			if ((sp[n].c)[i] == c)
 				x = sp[n].p(c, v);
