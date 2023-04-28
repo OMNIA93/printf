@@ -3,6 +3,10 @@
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
+#include <limits.h>
+#include <stdio.h>
+
 /**
  * struct flags - struct containing flags to "turn on"
  * when a flag specifier is passed to _printf()
