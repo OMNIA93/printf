@@ -3,13 +3,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-
-
 /**
  * binary - convert unsigned int to binary
  * @c: character
  * @v: argument
- *
  * Return: number of bytes
  */
 int binary(__attribute__((unused))char c, va_list v)
@@ -39,10 +36,12 @@ int binary(__attribute__((unused))char c, va_list v)
 	if (s == NULL)
 		return (0);
 
-	for (i = length - 1; i >= 0; i--)
+	i = length - 1;
+	while (i >= 0)
 	{
 		s[i] = '0' + (b % 2);
 		b = b / 2;
+		i--;
 	}
 	write(1, s, length);
 	free(s);
