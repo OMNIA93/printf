@@ -20,10 +20,12 @@ int flag(const char *format, int i, va_list v)
 		{
 	      if (!(format[i] == ' ' || format[i] == '#' || format[i] == '+'))
 		break;
-		if (format[i] == '#')
-			h = 1;
 		if (format[i] == ' ')
 			s = 1;
+			
+		if (format[i] == '#')
+			h = 1;
+		
 		if (format[i] == '+')
 			p = 1;
 		i++;
