@@ -7,7 +7,7 @@
  * @r: string to print
  * Return: number of chars printed
  */
-int print_rev(va_list r)
+int print_rev1(va_list r)
 {
         char *st;
         int i = 0, j = 0;
