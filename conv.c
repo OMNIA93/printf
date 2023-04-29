@@ -3,10 +3,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+
+
 /**
  * print_unsign - unsigned
  * @c: character
  * @v: argument
+ *
  * Return: number of bytes
  */
 
@@ -49,6 +52,7 @@ int print_unsign(char c, va_list v)
 	free(s);
 	return (i);
 }
+
 
 /**
  * print_oct - octal
@@ -94,4 +98,30 @@ int print_oct(char c, va_list v)
 	write(1, arr, i);
 	free(arr);
 	return (i);
+}
+
+
+/**
+ * print_P - print pointer
+ * @c: character
+ * @v: argument
+ *
+ * Return: number of bytes
+ */
+
+int print_P(char c, va_list v)
+{
+	char buff[1024];
+	void *ptr = va_arg(v, void *);
+	int l;
+	(void)c;
+
+	len = sprintf(buff, "%p", ptr);
+
+	write(1, buff, l);
+	return (l);
+
+	ptr = malloc(1024);
+	free(ptr);
+	return (write(1, &ptr, 8));
 }
