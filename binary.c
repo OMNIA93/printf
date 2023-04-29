@@ -149,3 +149,24 @@ int print_Hexa(char c, va_list v)
 	free(s);
 	return (i);
 }
+
+
+/**
+ * get_min - git
+ * @c: is a character
+ *
+ * Return: number
+ */
+
+long int get_min(char c)
+{
+	long int n;
+
+	if (c == 'l')
+		n = LONG_MIN;
+	else if (c == 'h')
+		n = -32768;
+	else
+		n = -2147483648;
+	return (n);
+}
