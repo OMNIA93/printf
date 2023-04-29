@@ -57,7 +57,7 @@ int fun(va_list v, const char *format, int k)
 int print_l(const char *format, int i, va_list v)
 {
 	int x = -1;
-	
+
 	if (format[i + 1] && (format[i] == 'l' || format[i] == 'h'))
 	{
 		if (format[i + 1] == 'd')
