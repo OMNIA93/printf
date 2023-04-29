@@ -74,3 +74,49 @@ int print_l(const char *format, int i, va_list v)
 	}
 	return (x);
 }
+
+
+
+/**
+ * print_rev - check the code
+ * @c: character
+ * @v: argument
+ *
+ * Return: len
+ */
+
+int print_rev(char c, va_list v)
+{
+	int l = 0, i = 0;
+	char *s;
+	char *p;
+	(void)c;
+
+	s = va_arg(v, char *);
+
+	if (s == NULL)
+	{
+		s = "(null)";
+		len = write(1, s, 6);
+	}
+	else
+	{
+		while (s[i])
+		{
+			l++;
+			i++;
+		}
+		p = malloc(l);
+		if (p != NULL)
+		{
+			for (i = 0; i < l; i++)
+			{
+
+				p[i] = s[l - 1 - i];
+			}
+			write(1, p, l);
+		}
+	}
+	free(p);
+	return (len);
+}
