@@ -3,12 +3,67 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+
+/**
+ * print_int - print integer
+ * @c: is a character
+ * @v: argument
+ *
+ * Return: number
+ */
+
+int print_int(char c, va_list v)
+{
+	long int i = 0, n, num, decimal = 1, a = 0, min;
+
+	min = get_min(c);
+	n = get_number(c, v);
+	if (n < 0)
+	{
+		_putchar('-');
+		i++;
+		if (n == min)
+		{
+			n = (n + 1) * -1;
+			a = 1;
+		}
+		else
+			n = n * -1;
+	}
+	else if (n >= 0 && c == '+')
+		i = i +  _putchar('+');
+	if (n < 10 && c == '+')
+		return (i = i + _putchar(n + '0'));
+	num = n;
+	while (num > 9)
+	{
+		decimal *= 10;
+		num /= 10;
+		i++;
+	}
+	while (decimal >= 1)
+	{
+		if ((decimal == 1) && (a == 1))
+			_putchar((n / decimal) + 1 + '0');
+		else
+			_putchar((n / decimal) + '0');
+		n = n % decimal;
+		decimal /= 10;
+	}
+	i++;
+	return (i);
+}
+
+
+
 /**
  * istring - print string
  * @c: character
  * @v: argument
+ *
  * Return: number of bytes
  */
+
 int istring(char c, va_list v)
 {
 	int i = 0;
@@ -55,6 +110,7 @@ int istring(char c, va_list v)
 
 /**
  * hexa - convert to hexa
+ *
  * @c: charachter
  */
 void hexa(char c)
@@ -105,6 +161,7 @@ void hexa(char c)
  * print_string -  prints the string
  * @c: character to compare with
  * @v: argument
+ *
  * Return: number of charachters
  */
 int print_string(__attribute__((unused))char c, va_list v)
