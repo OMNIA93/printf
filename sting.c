@@ -237,7 +237,7 @@ int rot(__attribute__((unused))char c, va_list v)
 				i++;
 			}
 		}
-		x = write(1, p, length);
+		x = write(1, p, len);
 	}
 	else
 	{
