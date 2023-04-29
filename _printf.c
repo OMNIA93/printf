@@ -48,3 +48,14 @@ int _printf(const char *format, ...)
 		sum = -1;
 	return (sum);
 }
+
+
+/**
+ * _putchar - write
+ * @c: character
+ * Return: zero
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
