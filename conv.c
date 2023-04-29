@@ -116,7 +116,7 @@ int print_P(char c, va_list v)
 	int l;
 	(void)c;
 
-	len = sprintf(buff, "%p", ptr);
+	l = sprintf(buff, "%p", ptr);
 
 	write(1, buff, l);
 	return (l);
