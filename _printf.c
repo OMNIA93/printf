@@ -59,3 +59,25 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+
+
+/**
+ * get_number - get number
+ * @c: is a character
+ * @v: argument
+ *
+ * Return: n
+ */
+
+long int get_number(char c, va_list v)
+{
+	long int n;
+
+	if (c == 'l')
+		n = va_arg(v, long int);
+	else if (c == 'h')
+		n = (short int)va_arg(v, int);
+	else
+		n = va_arg(v, int);
+	return (n);
+}
