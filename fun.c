@@ -82,7 +82,7 @@ int print_l(const char *format, int i, va_list v)
  * @c: character
  * @v: argument
  *
- * Return: len
+ * Return: l
  */
 
 int print_rev(char c, va_list v)
@@ -97,7 +97,7 @@ int print_rev(char c, va_list v)
 	if (s == NULL)
 	{
 		s = "(null)";
-		len = write(1, s, 6);
+		l = write(1, s, 6);
 	}
 	else
 	{
@@ -118,5 +118,5 @@ int print_rev(char c, va_list v)
 		}
 	}
 	free(p);
-	return (len);
+	return (l);
 }
